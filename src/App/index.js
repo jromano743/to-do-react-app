@@ -59,7 +59,7 @@ function useLocalStorage(itemName, initialValue){
 function App() {
   const {
     item: todos,
-    setItem: saveTodos,
+    saveItem: saveTodos,
     loading,
     error
   } = useLocalStorage(TODO_VERSION, []);  
