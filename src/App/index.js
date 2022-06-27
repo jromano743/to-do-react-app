@@ -1,10 +1,9 @@
 import React from 'react';
-import { TodoCounter } from "./components/TodoCounter";
-import { TodoSearch } from "./components/TodoSearch";
-import { TodoList } from "./components/TodoList";
-import { TodoItem } from "./components/TodoItem";
-import { CreateTodoButton } from "./components/CreateTodoButton";
-//import './App.css';
+import { TodoCounter } from "../components/TodoCounter";
+import { TodoSearch } from "../components/TodoSearch";
+import { TodoList } from "../components/TodoList";
+import { TodoItem } from "../components/TodoItem";
+import { CreateTodoButton } from "../components/CreateTodoButton";
 
 const defaultTodos = [
   {text: "Comprar huevos", completed: false},
@@ -31,7 +30,22 @@ function App() {
 
       return todoText.includes(searchText);
     })
+  }
 
+  const completeTodo = (text) => {
+    const todoIndex = todos.findIndex(todo => todo.text === text);
+    const newTodos = [...todos];
+
+    newTodos[todoIndex].completed = !newTodos[todoIndex].completed;
+    setTodos(newTodos);
+  }
+
+  const deleteTodo = (text) => {
+    const todoIndex = todos.findIndex(todo => todo.text === text);
+    const newTodos = [...todos];
+
+    newTodos.splice(todoIndex, 1);
+    setTodos(newTodos);
   }
 
   return (
@@ -51,6 +65,8 @@ function App() {
               key={item.text} 
               text={item.text} 
               completed={item.completed}
+              onComplete={() => completeTodo(item.text)}
+              onDelete={() => deleteTodo(item.text)}
             /> 
           ))
         }
